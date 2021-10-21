@@ -14,7 +14,7 @@ PROJECT_BUILD_NUMBER = ENV["PROJECT_BUILD_NUMBER"]
 def delete_temp_keychain()
   delete_keychain(
     name: TEMP_KEYCHAIN_USER
-  ) if File.exist? File.expand_path("~/Library/Keychains/#{name}-db")
+  ) if File.exist? File.expand_path("~/Library/Keychains/#{TEMP_KEYCHAIN_USER}-db")
 end
 
 
