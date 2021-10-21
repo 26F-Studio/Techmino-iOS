@@ -65,8 +65,9 @@ std::string getExecutablePath();
 
 /**
  * Causes devices with vibration support to vibrate for about 0.5 seconds.
+ * NOTE: 0 1 2 3 for iOS vibration levels.
  **/
-void vibrate();
+void vibrate(const double seconds);
 
 /**
  * Enable mix mode (e.g. with background music apps) and playback with a muted device.
