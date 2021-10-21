@@ -100,8 +100,8 @@ platform :ios do
   lane :dev do
     api_key = init_credentials()
 
-    fastlane_match('adhoc', api_key)
-    dev_package = build_target("Release", "Techmino Dev", "ad-hoc")
+    # fastlane_match('adhoc', api_key)
+    # dev_package = build_target("Release", "Techmino Dev", "ad-hoc")
 
     fastlane_match('appstore', api_key)
     dist_package = build_target("Distribution", "Techmino Dev", "app-store")
