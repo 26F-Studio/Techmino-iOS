@@ -1,0 +1,4 @@
+/platform/xcode/Build
+/platform/xcode/DerivedData
+*xcuserdata*
+*.DS_Store
