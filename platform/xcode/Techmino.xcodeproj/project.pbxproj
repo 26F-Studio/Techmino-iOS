@@ -76,7 +76,7 @@
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2109E8EA270F253400EC8494 /* Techmino.love */ = {isa = PBXFileReference; lastKnownFileType = file; path = Techmino.love; sourceTree = "<group>"; };
-		2158D96B272146C80049A12B /* TechminoDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechminoDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2158D96B272146C80049A12B /* Techmino Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Techmino Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2158D96C272146C90049A12B /* Techmino copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Techmino copy-Info.plist"; path = "/Users/lawrence/Documents/XcodeProjects/Techmino-iOS/platform/xcode/Techmino copy-Info.plist"; sourceTree = "<absolute>"; };
 		218F409F271EB259005B7B41 /* libCCloader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCCloader.a; sourceTree = "<group>"; };
 		218F40A1271EC724005B7B41 /* libcold_clear.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcold_clear.a; sourceTree = "<group>"; };
@@ -181,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				FA0B7F061A95AAF3000E1D17 /* Techmino.app */,
-				2158D96B272146C80049A12B /* TechminoDev.app */,
+				2158D96B272146C80049A12B /* Techmino Dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -279,9 +279,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2158D94D272146C80049A12B /* TechminoDev */ = {
+		2158D94D272146C80049A12B /* Techmino Dev */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2158D967272146C80049A12B /* Build configuration list for PBXNativeTarget "TechminoDev" */;
+			buildConfigurationList = 2158D967272146C80049A12B /* Build configuration list for PBXNativeTarget "Techmino Dev" */;
 			buildPhases = (
 				2158D950272146C80049A12B /* Sources */,
 				2158D952272146C80049A12B /* Frameworks */,
@@ -292,9 +292,9 @@
 			dependencies = (
 				2158D94E272146C80049A12B /* PBXTargetDependency */,
 			);
-			name = TechminoDev;
+			name = "Techmino Dev";
 			productName = "love-ios";
-			productReference = 2158D96B272146C80049A12B /* TechminoDev.app */;
+			productReference = 2158D96B272146C80049A12B /* Techmino Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FA0B7F051A95AAF3000E1D17 /* Techmino */ = {
@@ -356,7 +356,7 @@
 			projectRoot = "";
 			targets = (
 				FA0B7F051A95AAF3000E1D17 /* Techmino */,
-				2158D94D272146C80049A12B /* TechminoDev */,
+				2158D94D272146C80049A12B /* Techmino Dev */,
 			);
 		};
 /* End PBXProject section */
@@ -1031,7 +1031,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2158D967272146C80049A12B /* Build configuration list for PBXNativeTarget "TechminoDev" */ = {
+		2158D967272146C80049A12B /* Build configuration list for PBXNativeTarget "Techmino Dev" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2158D968272146C80049A12B /* Debug */,

@@ -104,7 +104,7 @@ platform :ios do
     # dev_package = build_target("Release", "Techmino Dev", "ad-hoc")
 
     fastlane_match('appstore', api_key)
-    dist_package = build_target("Distribution", "TechminoDev", "app-store")
+    dist_package = build_target("Distribution", "Techmino Dev", "app-store")
     upload_package(dist_package)
 
     delete_temp_keychain()
