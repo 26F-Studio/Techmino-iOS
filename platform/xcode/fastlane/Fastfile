@@ -10,6 +10,7 @@ APPLE_KEY_ID = ENV["APPLE_KEY_ID"]
 APPLE_KEY_CONTENT = ENV["APPLE_KEY_CONTENT"]
 GIT_AUTHORIZATION = ENV["GIT_AUTHORIZATION"]
 PROJECT_BUILD_NUMBER = ENV["PROJECT_BUILD_NUMBER"]
+PILOT_CHANGE_LOG = ENV["PILOT_CHANGE_LOG"]
 
 def delete_temp_keychain()
   delete_keychain(
@@ -90,6 +91,7 @@ def upload_package(package_name, is_release)
       app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
       distribute_external: true,
       expire_previous_builds: true,
+      changelog: "#{PILOT_CHANGE_LOG}"
       groups: "Techmino",
       ipa: package_name
     )
