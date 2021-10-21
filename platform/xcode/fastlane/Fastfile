@@ -86,10 +86,6 @@ def upload_package(package_name)
   )
 end
 
-def move_artifact(package_name)
-  sh('mv', package_name, "../../../Techmino.ipa")
-end
-
 platform :ios do
   lane :release do
     api_key = init_credentials()
@@ -97,7 +93,6 @@ platform :ios do
     fastlane_match("appstore", api_key)
     dist_package = build_target("Distribution", "Techmino", "app-store")
     upload_package(dist_package)
-    move_artifact(dist_package)
 
     delete_temp_keychain()
   end
@@ -107,7 +102,6 @@ platform :ios do
 
     fastlane_match('adhoc', api_key)
     dev_package = build_target("Release", "Techmino Dev", "ad-hoc")
-    move_artifact(dev_package)
 
     fastlane_match('appstore', api_key)
     dist_package = build_target("Distribution", "Techmino Dev", "app-store")
