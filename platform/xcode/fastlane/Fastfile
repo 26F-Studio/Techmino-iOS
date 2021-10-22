@@ -93,7 +93,6 @@ def upload_package(package_name, is_release)
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
       distribute_external: true,
-      expire_previous_builds: true,
       changelog: "#{PILOT_CHANGE_LOG}",
       groups: "Techmino",
       ipa: package_name
