@@ -359,12 +359,13 @@ static PHYSFS_sint64 ZIP_read(PHYSFS_Io *_io, void *buf, PHYSFS_uint64 len)
     return retval;
 } /* ZIP_read */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static PHYSFS_sint64 ZIP_write(PHYSFS_Io *io, const void *b, PHYSFS_uint64 len)
 {
     BAIL(PHYSFS_ERR_READ_ONLY, -1);
 } /* ZIP_write */
-
+#pragma clang diagnostic pop
 
 static PHYSFS_sint64 ZIP_tell(PHYSFS_Io *io)
 {
@@ -489,7 +490,10 @@ failed:
     return NULL;
 } /* ZIP_duplicate */
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static int ZIP_flush(PHYSFS_Io *io) { return 1;  /* no write support. */ }
+#pragma clang diagnostic pop
 
 static void ZIP_destroy(PHYSFS_Io *io)
 {
@@ -547,12 +551,14 @@ static PHYSFS_sint64 zip_find_end_of_central_dir(PHYSFS_Io *io, PHYSFS_sint64 *l
      *  searching for that signature after a little more than 64k at most,
      *  and call it a corrupted zipfile.
      */
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wsign-compare"
     if (sizeof (buf) < filelen)
     {
         filepos = filelen - sizeof (buf);
         maxread = sizeof (buf);
     } /* if */
+#pragma clang diagnostic pop
     else
     {
         filepos = 0;
@@ -1457,7 +1463,8 @@ static void ZIP_closeArchive(void *opaque)
     allocator.Free(info);
 } /* ZIP_closeArchive */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void *ZIP_openArchive(PHYSFS_Io *io, const char *name,
                              int forWriting, int *claimed)
 {
@@ -1499,7 +1506,7 @@ ZIP_openarchive_failed:
     ZIP_closeArchive(info);
     return NULL;
 } /* ZIP_openArchive */
-
+#pragma clang diagnostic pop
 
 static PHYSFS_Io *zip_get_io(PHYSFS_Io *io, ZIPinfo *inf, ZIPentry *entry)
 {
@@ -1620,7 +1627,8 @@ ZIP_openRead_failed:
     return NULL;
 } /* ZIP_openRead */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static PHYSFS_Io *ZIP_openWrite(void *opaque, const char *filename)
 {
     BAIL(PHYSFS_ERR_READ_ONLY, NULL);
@@ -1643,7 +1651,7 @@ static int ZIP_mkdir(void *opaque, const char *name)
 {
     BAIL(PHYSFS_ERR_READ_ONLY, 0);
 } /* ZIP_mkdir */
-
+#pragma clang diagnostic pop
 
 static int ZIP_stat(void *opaque, const char *filename, PHYSFS_Stat *stat)
 {

@@ -80,12 +80,13 @@ static PHYSFS_sint64 UNPK_read(PHYSFS_Io *io, void *buffer, PHYSFS_uint64 len)
     return rc;
 } /* UNPK_read */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static PHYSFS_sint64 UNPK_write(PHYSFS_Io *io, const void *b, PHYSFS_uint64 len)
 {
     BAIL(PHYSFS_ERR_READ_ONLY, -1);
 } /* UNPK_write */
-
+#pragma clang diagnostic pop
 
 static PHYSFS_sint64 UNPK_tell(PHYSFS_Io *io)
 {
@@ -140,7 +141,10 @@ UNPK_duplicate_failed:
     return NULL;
 } /* UNPK_duplicate */
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static int UNPK_flush(PHYSFS_Io *io) { return 1;  /* no write support. */ }
+#pragma clang diagnostic pop
 
 static void UNPK_destroy(PHYSFS_Io *io)
 {
@@ -149,7 +153,6 @@ static void UNPK_destroy(PHYSFS_Io *io)
     allocator.Free(finfo);
     allocator.Free(io);
 } /* UNPK_destroy */
-
 
 static const PHYSFS_Io UNPK_Io =
 {
@@ -214,7 +217,8 @@ UNPK_openRead_failed:
     return NULL;
 } /* UNPK_openRead */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 PHYSFS_Io *UNPK_openWrite(void *opaque, const char *name)
 {
     BAIL(PHYSFS_ERR_READ_ONLY, NULL);
@@ -237,7 +241,7 @@ int UNPK_mkdir(void *opaque, const char *name)
 {
     BAIL(PHYSFS_ERR_READ_ONLY, 0);
 } /* UNPK_mkdir */
-
+#pragma clang diagnostic pop
 
 int UNPK_stat(void *opaque, const char *path, PHYSFS_Stat *stat)
 {

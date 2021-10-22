@@ -856,7 +856,8 @@ void TParseVersions::updateExtensionBehavior(const char* extension, TExtensionBe
         }
     }
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 // Check if extension is used with correct shader stage.
 void TParseVersions::checkExtensionStage(const TSourceLoc& loc, const char * const extension)
 {
@@ -870,6 +871,7 @@ void TParseVersions::checkExtensionStage(const TSourceLoc& loc, const char * con
     }
 #endif
 }
+#pragma clang diagnostic pop
 
 // Call for any operation needing full GLSL integer data-type support.
 void TParseVersions::fullIntegerCheck(const TSourceLoc& loc, const char* op)

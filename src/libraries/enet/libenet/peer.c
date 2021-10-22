@@ -266,7 +266,8 @@ enet_peer_reset_outgoing_commands (ENetList * queue)
        enet_free (outgoingCommand);
     }
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void
 enet_peer_remove_incoming_commands (ENetList * queue, ENetListIterator startCommand, ENetListIterator endCommand)
 {
@@ -294,6 +295,7 @@ enet_peer_remove_incoming_commands (ENetList * queue, ENetListIterator startComm
        enet_free (incomingCommand);
     }
 }
+#pragma clang diagnostic pop
 
 static void
 enet_peer_reset_incoming_commands (ENetList * queue)

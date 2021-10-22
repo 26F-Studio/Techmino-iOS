@@ -69,7 +69,8 @@ static int wadLoadEntries(PHYSFS_Io *io, const PHYSFS_uint32 count, void *arc)
     return 1;
 } /* wadLoadEntries */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void *WAD_openArchive(PHYSFS_Io *io, const char *name,
                              int forWriting, int *claimed)
 {
@@ -106,7 +107,7 @@ static void *WAD_openArchive(PHYSFS_Io *io, const char *name,
 
     return unpkarc;
 } /* WAD_openArchive */
-
+#pragma clang diagnostic pop
 
 const PHYSFS_Archiver __PHYSFS_Archiver_WAD =
 {

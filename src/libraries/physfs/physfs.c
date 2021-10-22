@@ -268,12 +268,14 @@ static PHYSFS_sint64 memoryIo_read(PHYSFS_Io *io, void *buf, PHYSFS_uint64 len)
     info->pos += len;
     return len;
 } /* memoryIo_read */
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static PHYSFS_sint64 memoryIo_write(PHYSFS_Io *io, const void *buffer,
                                     PHYSFS_uint64 len)
 {
     BAIL(PHYSFS_ERR_OPEN_FOR_READING, -1);
 } /* memoryIo_write */
+#pragma clang diagnostic pop
 
 static int memoryIo_seek(PHYSFS_Io *io, PHYSFS_uint64 offset)
 {
@@ -334,8 +336,10 @@ static PHYSFS_Io *memoryIo_duplicate(PHYSFS_Io *io)
     retval->opaque = newinfo;
     return retval;
 } /* memoryIo_duplicate */
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static int memoryIo_flush(PHYSFS_Io *io) { return 1;  /* it's read-only. */ }
+#pragma clang diagnostic pop
 
 static void memoryIo_destroy(PHYSFS_Io *io)
 {
@@ -1944,7 +1948,8 @@ typedef struct setSaneCfgEnumData
     int archivesFirst;
     PHYSFS_ErrorCode errcode;
 } setSaneCfgEnumData;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static PHYSFS_EnumerateCallbackResult setSaneCfgEnumCallback(void *_data,
                                                 const char *dir, const char *f)
 {
@@ -1979,7 +1984,7 @@ static PHYSFS_EnumerateCallbackResult setSaneCfgEnumCallback(void *_data,
 
     return PHYSFS_ENUM_OK;  /* keep going */
 } /* setSaneCfgEnumCallback */
-
+#pragma clang diagnostic pop
 
 int PHYSFS_setSaneConfig(const char *organization, const char *appName,
                          const char *archiveExt, int includeCdRoms,
@@ -2335,7 +2340,8 @@ static int locateInStringList(const char *str,
     return 0;
 } /* locateInStringList */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static PHYSFS_EnumerateCallbackResult enumFilesCallback(void *data,
                                         const char *origdir, const char *str)
 {
@@ -2379,7 +2385,7 @@ static PHYSFS_EnumerateCallbackResult enumFilesCallback(void *data,
 
     return PHYSFS_ENUM_OK;
 } /* enumFilesCallback */
-
+#pragma clang diagnostic pop
 
 char **PHYSFS_enumerateFiles(const char *path)
 {
@@ -3137,7 +3143,10 @@ int PHYSFS_stat(const char *_fname, PHYSFS_Stat *stat)
 int __PHYSFS_readAll(PHYSFS_Io *io, void *buf, const size_t _len)
 {
     const PHYSFS_uint64 len = (PHYSFS_uint64) _len;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wsign-compare"
     return (io->read(io, buf, len) == len);
+#pragma clang diagnostic pop
 } /* __PHYSFS_readAll */
 
 

@@ -60,7 +60,8 @@ static int hogLoadEntries(PHYSFS_Io *io, void *arc)
     return 1;
 } /* hogLoadEntries */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void *HOG_openArchive(PHYSFS_Io *io, const char *name,
                              int forWriting, int *claimed)
 {
@@ -85,7 +86,7 @@ static void *HOG_openArchive(PHYSFS_Io *io, const char *name,
 
     return unpkarc;
 } /* HOG_openArchive */
-
+#pragma clang diagnostic pop
 
 const PHYSFS_Archiver __PHYSFS_Archiver_HOG =
 {

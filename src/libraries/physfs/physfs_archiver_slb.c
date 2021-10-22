@@ -58,7 +58,8 @@ static int slbLoadEntries(PHYSFS_Io *io, const PHYSFS_uint32 count, void *arc)
     return 1;
 } /* slbLoadEntries */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void *SLB_openArchive(PHYSFS_Io *io, const char *name,
                              int forWriting, int *claimed)
 {
@@ -107,7 +108,7 @@ static void *SLB_openArchive(PHYSFS_Io *io, const char *name,
 
     return unpkarc;
 } /* SLB_openArchive */
-
+#pragma clang diagnostic pop
 
 const PHYSFS_Archiver __PHYSFS_Archiver_SLB =
 {

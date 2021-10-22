@@ -52,7 +52,8 @@ static int mvlLoadEntries(PHYSFS_Io *io, const PHYSFS_uint32 count, void *arc)
     return 1;
 } /* mvlLoadEntries */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void *MVL_openArchive(PHYSFS_Io *io, const char *name,
                              int forWriting, int *claimed)
 {
@@ -81,7 +82,7 @@ static void *MVL_openArchive(PHYSFS_Io *io, const char *name,
 
     return unpkarc;
 } /* MVL_openArchive */
-
+#pragma clang diagnostic pop
 
 const PHYSFS_Archiver __PHYSFS_Archiver_MVL =
 {

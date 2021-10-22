@@ -92,7 +92,8 @@ static int vdfLoadEntries(PHYSFS_Io *io, const PHYSFS_uint32 count,
     return 1;
 } /* vdfLoadEntries */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void *VDF_openArchive(PHYSFS_Io *io, const char *name,
                              int forWriting, int *claimed)
 {
@@ -140,7 +141,7 @@ static void *VDF_openArchive(PHYSFS_Io *io, const char *name,
 
     return unpkarc;
 } /* VDF_openArchive */
-
+#pragma clang diagnostic pop
 
 const PHYSFS_Archiver __PHYSFS_Archiver_VDF =
 {

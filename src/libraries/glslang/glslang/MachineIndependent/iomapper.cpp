@@ -136,7 +136,10 @@ public:
             target = &uniformList;
 
         if (target) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-field-initializers"
             TVarEntryInfo ent = { base->getId(), base, !traverseAll };
+#pragma clang diagnostic pop
             TVarLiveMap::iterator at = std::lower_bound(target->begin(), target->end(), ent, TVarEntryInfo::TOrderById());
             if (at != target->end() && at->id == ent.id)
               at->live = at->live || !traverseAll; // update live state
@@ -171,12 +174,18 @@ public:
         else if (base->getQualifier().storage == EvqVaryingOut)
             source = &outputList;
         else if (base->getQualifier().isUniformOrBuffer())
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-field-initializers"
+
+#pragma clang diagnostic pop
             source = &uniformList;
         else
             return;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-field-initializers"
         TVarEntryInfo ent = { base->getId() };
         TVarLiveMap::const_iterator at = std::lower_bound(source->begin(), source->end(), ent, TVarEntryInfo::TOrderById());
+#pragma clang diagnostic pop
         if (at == source->end())
             return;
 

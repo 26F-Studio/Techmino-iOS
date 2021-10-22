@@ -57,9 +57,9 @@ static PHYSFS_ErrorCode szipErrorCode(const SRes rc)
     return PHYSFS_ERR_OTHER_ERROR;
 } /* szipErrorCode */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 /* LZMA SDK's ISzAlloc interface ... */
-
 static void *SZIP_ISzAlloc_Alloc(void *p, size_t size)
 {
     return allocator.Malloc(size ? size : 1);
@@ -70,6 +70,7 @@ static void SZIP_ISzAlloc_Free(void *p, void *address)
     if (address)
         allocator.Free(address);
 } /* SZIP_ISzAlloc_Free */
+#pragma clang diagnostic pop
 
 static ISzAlloc SZIP_SzAlloc = {
     SZIP_ISzAlloc_Alloc, SZIP_ISzAlloc_Free
@@ -211,7 +212,8 @@ static void SZIP_closeArchive(void *opaque)
     } /* if */
 } /* SZIP_closeArchive */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void *SZIP_openArchive(PHYSFS_Io *io, const char *name,
                               int forWriting, int *claimed)
 {
@@ -251,7 +253,7 @@ failed:
     SZIP_closeArchive(info);
     return NULL;
 } /* SZIP_openArchive */
-
+#pragma clang diagnostic pop
 
 static PHYSFS_Io *SZIP_openRead(void *opaque, const char *path)
 {
@@ -314,7 +316,8 @@ SZIP_openRead_failed:
     return NULL;
 } /* SZIP_openRead */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static PHYSFS_Io *SZIP_openWrite(void *opaque, const char *filename)
 {
     BAIL(PHYSFS_ERR_READ_ONLY, NULL);
@@ -337,7 +340,7 @@ static int SZIP_mkdir(void *opaque, const char *name)
 {
     BAIL(PHYSFS_ERR_READ_ONLY, 0);
 } /* SZIP_mkdir */
-
+#pragma clang diagnostic pop
 
 static inline PHYSFS_uint64 lzmasdkTimeToPhysfsTime(const CNtfsFileTime *t)
 {

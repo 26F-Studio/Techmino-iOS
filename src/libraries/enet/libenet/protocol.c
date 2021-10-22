@@ -31,7 +31,8 @@ enet_protocol_command_size (enet_uint8 commandNumber)
 {
     return commandSizes [commandNumber & ENET_PROTOCOL_COMMAND_MASK];
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void
 enet_protocol_change_state (ENetHost * host, ENetPeer * peer, ENetPeerState state)
 {
@@ -42,6 +43,7 @@ enet_protocol_change_state (ENetHost * host, ENetPeer * peer, ENetPeerState stat
 
     peer -> state = state;
 }
+#pragma clang diagnostic pop
 
 static void
 enet_protocol_dispatch_state (ENetHost * host, ENetPeer * peer, ENetPeerState state)
@@ -270,7 +272,8 @@ enet_protocol_remove_sent_reliable_command (ENetPeer * peer, enet_uint16 reliabl
 
     return commandNumber;
 } 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static ENetPeer *
 enet_protocol_handle_connect (ENetHost * host, ENetProtocolHeader * header, ENetProtocol * command)
 {
@@ -420,6 +423,7 @@ enet_protocol_handle_connect (ENetHost * host, ENetProtocolHeader * header, ENet
 
     return peer;
 }
+#pragma clang diagnostic pop
 
 static int
 enet_protocol_handle_send_reliable (ENetHost * host, ENetPeer * peer, const ENetProtocol * command, enet_uint8 ** currentData)
@@ -737,7 +741,8 @@ enet_protocol_handle_send_unreliable_fragment (ENetHost * host, ENetPeer * peer,
 
     return 0;
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static int
 enet_protocol_handle_ping (ENetHost * host, ENetPeer * peer, const ENetProtocol * command)
 {
@@ -746,6 +751,7 @@ enet_protocol_handle_ping (ENetHost * host, ENetPeer * peer, const ENetProtocol 
 
     return 0;
 }
+#pragma clang diagnostic pop
 
 static int
 enet_protocol_handle_bandwidth_limit (ENetHost * host, ENetPeer * peer, const ENetProtocol * command)
@@ -780,7 +786,8 @@ enet_protocol_handle_bandwidth_limit (ENetHost * host, ENetPeer * peer, const EN
 
     return 0;
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static int
 enet_protocol_handle_throttle_configure (ENetHost * host, ENetPeer * peer, const ENetProtocol * command)
 {
@@ -793,6 +800,7 @@ enet_protocol_handle_throttle_configure (ENetHost * host, ENetPeer * peer, const
 
     return 0;
 }
+#pragma clang diagnostic pop
 
 static int
 enet_protocol_handle_disconnect (ENetHost * host, ENetPeer * peer, const ENetProtocol * command)

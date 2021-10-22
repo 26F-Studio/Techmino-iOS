@@ -222,7 +222,10 @@ PHYSFS_sint64 __PHYSFS_platformRead(void *opaque, void *buffer,
     rc = read(fd, buffer, (size_t) len);
     BAIL_IF(rc == -1, errcodeFromErrno(), -1);
     assert(rc >= 0);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wsign-compare"
     assert(rc <= len);
+#pragma clang diagnostic pop
     return (PHYSFS_sint64) rc;
 } /* __PHYSFS_platformRead */
 
@@ -235,12 +238,14 @@ PHYSFS_sint64 __PHYSFS_platformWrite(void *opaque, const void *buffer,
 
     if (!__PHYSFS_ui64FitsAddressSpace(len))
         BAIL(PHYSFS_ERR_INVALID_ARGUMENT, -1);
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wsign-compare"
     rc = write(fd, (void *) buffer, (size_t) len);
     BAIL_IF(rc == -1, errcodeFromErrno(), rc);
     assert(rc >= 0);
     assert(rc <= len);
     return (PHYSFS_sint64) rc;
+#pragma clang diagnostic pop
 } /* __PHYSFS_platformWrite */
 
 

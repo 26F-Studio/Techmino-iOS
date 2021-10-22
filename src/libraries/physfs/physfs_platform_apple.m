@@ -26,7 +26,8 @@ void __PHYSFS_platformDeinit(void)
     /* no-op */
 } /* __PHYSFS_platformDeinit */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 char *__PHYSFS_platformCalcBaseDir(const char *argv0)
 {
     @autoreleasepool
@@ -61,7 +62,7 @@ char *__PHYSFS_platformCalcPrefDir(const char *org, const char *app)
         return retval;  /* whew. */
     } /* @autoreleasepool */
 } /* __PHYSFS_platformCalcPrefDir */
-
+#pragma clang diagnostic pop
 
 /* CD-ROM detection code... */
 
@@ -154,7 +155,8 @@ static int darwinIsMountedDisc(char *bsdName, mach_port_t masterPort)
 
 #endif /* !defined(PHYSFS_NO_CDROM_SUPPORT) */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 void __PHYSFS_platformDetectAvailableCDs(PHYSFS_StringCallback cb, void *data)
 {
 #if !defined(PHYSFS_NO_CDROM_SUPPORT)
@@ -181,6 +183,7 @@ void __PHYSFS_platformDetectAvailableCDs(PHYSFS_StringCallback cb, void *data)
     } /* for */
 #endif /* !defined(PHYSFS_NO_CDROM_SUPPORT) */
 } /* __PHYSFS_platformDetectAvailableCDs */
+#pragma clang diagnostic pop
 
 #endif /* PHYSFS_PLATFORM_APPLE */
 

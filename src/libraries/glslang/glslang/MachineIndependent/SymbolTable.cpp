@@ -228,12 +228,14 @@ void TFunction::dump(TInfoSink& infoSink, bool complete) const
 
     infoSink.debug << "\n";
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 void TAnonMember::dump(TInfoSink& TInfoSink, bool complete) const
 {
     TInfoSink.debug << "anonymous member " << getMemberNumber() << " of " << getAnonContainer().getName().c_str()
                     << "\n";
 }
+#pragma clang diagnostic pop
 
 void TSymbolTableLevel::dump(TInfoSink& infoSink, bool complete) const
 {

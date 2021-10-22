@@ -330,7 +330,8 @@ static int parseVolumeDescriptor(PHYSFS_Io *io, PHYSFS_uint64 *_rootpos,
     return 1;
 } /* parseVolumeDescriptor */
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 static void *ISO9660_openArchive(PHYSFS_Io *io, const char *filename,
                                  int forWriting, int *claimed)
 {
@@ -357,7 +358,7 @@ static void *ISO9660_openArchive(PHYSFS_Io *io, const char *filename,
 
     return unpkarc;
 } /* ISO9660_openArchive */
-
+#pragma clang diagnostic pop
 
 const PHYSFS_Archiver __PHYSFS_Archiver_ISO9660 =
 {

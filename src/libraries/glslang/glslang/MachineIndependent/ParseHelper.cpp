@@ -633,7 +633,8 @@ void TParseContext::checkIoArraysConsistency(const TSourceLoc &loc, bool tailOnl
                                 ioArraySymbolResizeList[i]->getName());
     }
 }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 int TParseContext::getIoArrayImplicitSize(const TQualifier &qualifier, TString *featureString) const
 {
     int expectedSize = 0;
@@ -676,6 +677,7 @@ int TParseContext::getIoArrayImplicitSize(const TQualifier &qualifier, TString *
         *featureString = str;
     return expectedSize;
 }
+#pragma clang diagnostic pop
 
 void TParseContext::checkIoArrayConsistency(const TSourceLoc& loc, int requiredSize, const char* feature, TType& type, const TString& name)
 {
