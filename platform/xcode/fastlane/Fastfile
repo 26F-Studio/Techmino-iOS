@@ -120,7 +120,7 @@ platform :ios do
     delete_temp_keychain()
   end
 
-  lane :dev do
+  lane :test do
     api_key = init_credentials()
 
     fastlane_match('development', api_key)
@@ -129,6 +129,15 @@ platform :ios do
     fastlane_match('appstore', api_key)
     dist_package = build_target("Distribution", "Techmino Dev", "app-store", false)
     upload_package(dist_package, false)
+
+    delete_temp_keychain()
+  end
+
+  lane :dev do
+    api_key = init_credentials()
+
+    fastlane_match('development', api_key)
+    build_target("Debug", "Techmino Dev", "development", true)
 
     delete_temp_keychain()
   end
