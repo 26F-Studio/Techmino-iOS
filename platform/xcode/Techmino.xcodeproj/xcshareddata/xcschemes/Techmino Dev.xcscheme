@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2158D94D272146C80049A12B"
-               BuildableName = "TechminoDev.app"
+               BuildableName = "Techmino Dev.app"
                BlueprintName = "Techmino Dev"
                ReferencedContainer = "container:Techmino.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2158D94D272146C80049A12B"
-            BuildableName = "TechminoDev.app"
+            BuildableName = "Techmino Dev.app"
             BlueprintName = "Techmino Dev"
             ReferencedContainer = "container:Techmino.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2158D94D272146C80049A12B"
-            BuildableName = "TechminoDev.app"
+            BuildableName = "Techmino Dev.app"
             BlueprintName = "Techmino Dev"
             ReferencedContainer = "container:Techmino.xcodeproj">
          </BuildableReference>
