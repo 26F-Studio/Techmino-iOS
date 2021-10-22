@@ -24,6 +24,7 @@ def init_credentials()
     name: TEMP_KEYCHAIN_USER,
     password: TEMP_KEYCHAIN_PASSWORD,
     unlock: false,
+    default_keychain: true,
     timeout: 0
   )
 
