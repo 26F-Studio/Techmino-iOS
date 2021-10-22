@@ -4,7 +4,7 @@ storage_mode("git")
 
 type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
 
-app_identifier(["torg.26f-studio.techmino.dev", "org.26f-studio.techmino.release"])
+app_identifier(["org.26f-studio.techmino.dev", "org.26f-studio.techmino.release"])
 username("1046101471@qq.com") # Your Apple Developer Portal username
 
 # For all available options run `fastlane match --help`
