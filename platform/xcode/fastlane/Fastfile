@@ -48,7 +48,7 @@ def fastlane_match(profile_type, api_key)
   )
 end
 
-def build_target(custom_configuration, custom_scheme, custom_method)
+def build_target(custom_configuration, custom_scheme, custom_method, default_package_name)
   puts "New build number is: #{PROJECT_BUILD_NUMBER}"
     
   increment_build_number_in_xcodeproj(
@@ -57,7 +57,11 @@ def build_target(custom_configuration, custom_scheme, custom_method)
     build_number: "#{PROJECT_BUILD_NUMBER}"
   )
 
-  package_name = "#{custom_scheme}_#{custom_configuration}_#{custom_method}.ipa"
+  if default_package_name
+    package_name = "Techmino.ipa"
+  else
+    package_name = "#{custom_scheme}_#{custom_configuration}_#{custom_method}.ipa"
+  end
 
   gym(
     silent: true,
@@ -101,20 +105,15 @@ def upload_package(package_name, is_release)
   end
 end
 
-def rename_package(package_name)
-  sh("mv", "Techmino-iOS/platform/xcode/" + package_name, "Techmino.ipa")
-end
-
 platform :ios do
   lane :release do
     api_key = init_credentials()
 
     fastlane_match('development', api_key)
-    dev_package = build_target("Debug", "Techmino", "development")
-    rename_package(dev_package)
+    build_target("Debug", "Techmino", "development", true)
 
     fastlane_match("appstore", api_key)
-    dist_package = build_target("Distribution", "Techmino", "app-store")
+    dist_package = build_target("Distribution", "Techmino", "app-store", false)
     upload_package(dist_package, true)
 
     delete_temp_keychain()
@@ -124,11 +123,10 @@ platform :ios do
     api_key = init_credentials()
 
     fastlane_match('development', api_key)
-    dev_package = build_target("Debug", "Techmino Dev", "development")
-    rename_package(dev_package)
+    build_target("Debug", "Techmino Dev", "development", true)
 
     fastlane_match('appstore', api_key)
-    dist_package = build_target("Distribution", "Techmino Dev", "app-store")
+    dist_package = build_target("Distribution", "Techmino Dev", "app-store", false)
     upload_package(dist_package, false)
 
     delete_temp_keychain()
