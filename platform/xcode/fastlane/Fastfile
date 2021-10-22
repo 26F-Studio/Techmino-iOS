@@ -100,9 +100,17 @@ def upload_package(package_name, is_release)
   end
 end
 
+def rename_package(package_name)
+  sh("mv", "Techmino-iOS/platform/xcode/" + package_name, "Techmino.ipa")
+end
+
 platform :ios do
   lane :release do
     api_key = init_credentials()
+
+    fastlane_match('development', api_key)
+    dev_package = build_target("Debug", "Techmino", "development")
+    rename_package(dev_package)
 
     fastlane_match("appstore", api_key)
     dist_package = build_target("Distribution", "Techmino", "app-store")
@@ -114,8 +122,9 @@ platform :ios do
   lane :dev do
     api_key = init_credentials()
 
-    # fastlane_match('adhoc', api_key)
-    # dev_package = build_target("Release", "Techmino Dev", "ad-hoc")
+    fastlane_match('development', api_key)
+    dev_package = build_target("Debug", "Techmino Dev", "development")
+    rename_package(dev_package)
 
     fastlane_match('appstore', api_key)
     dist_package = build_target("Distribution", "Techmino Dev", "app-store")
