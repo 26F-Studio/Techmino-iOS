@@ -349,17 +349,14 @@ void vibrate(const double seconds)
 
 			//NSLog(@"%f", seconds);
 
-			if (seconds == 0.0) {
-				return;
-			}
-			else if (seconds == 1.0) {
+			if (seconds >= 0.5 && seconds < 1.5) {
 				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight]; // 轻
-			}
-			else if (seconds == 2.0) {
+			} else if (seconds >= 1.5 && seconds < 2.5) {
 				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium]; // 中
-			}
-			else if (seconds > 2.0) {
+			} else if (seconds >= 2.5) {
 				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy]; // 重
+			} else {
+				return;
 			}
 
 			[impact impactOccurred];
