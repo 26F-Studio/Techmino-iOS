@@ -141,10 +141,13 @@ static lua_Number compute_peer_key(lua_State *L, ENetPeer *peer)
 	static const size_t shift = (size_t) log2((double) minalign);
 
 	key >>= shift;
-
+	
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"
 	// Make sure our key isn't larger than 2^53.
 	if (key > 0x20000000000000ULL)
 		luaL_error(L, "Cannot push enet peer to Lua: pointer value %p is too large", peer);
+#pragma clang diagnostic pop
 
 	return (lua_Number) key;
 }

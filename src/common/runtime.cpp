@@ -118,9 +118,12 @@ static lua_Number luax_computeloveobjectkey(lua_State *L, love::Object *object)
 
 	key >>= shift;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"
 	// Make sure our key isn't larger than 2^53.
 	if (key > 0x20000000000000ULL)
 		luaL_error(L, "Cannot push love object to Lua: pointer value %p is too large", object);
+#pragma clang diagnostic pop
 
 	return (lua_Number) key;
 }

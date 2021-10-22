@@ -10908,6 +10908,9 @@ static int DecodeChunk(EXRImage *exr_image, const EXRHeader *exr_header,
     // for #104.
     size_t total_data_len =
         size_t(data_width) * size_t(data_height) * size_t(num_channels);
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"
     if ((total_data_len == 0) || (total_data_len >= 0x4000000000)) {
       if (err) {
         std::stringstream ss;
@@ -10918,6 +10921,7 @@ static int DecodeChunk(EXRImage *exr_image, const EXRHeader *exr_header,
       }
       return TINYEXR_ERROR_INVALID_DATA;
     }
+#pragma clang diagnostic pop
 
     exr_image->images = tinyexr::AllocateImage(
         num_channels, exr_header->channels, exr_header->requested_pixel_types,
