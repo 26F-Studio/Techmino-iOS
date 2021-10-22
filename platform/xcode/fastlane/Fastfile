@@ -60,6 +60,7 @@ def build_target(custom_configuration, custom_scheme, custom_method)
   package_name = "#{custom_scheme}_#{custom_configuration}_#{custom_method}.ipa"
 
   gym(
+    silent: true,
     project: "Techmino.xcodeproj",
     configuration: custom_configuration,
     scheme: custom_scheme,
