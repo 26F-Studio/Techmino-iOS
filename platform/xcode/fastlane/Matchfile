@@ -1,4 +1,4 @@
-git_url("https://github.com/26F-Studio/Techmino-iOS-fastlane.git")
+git_url("https://github.com/26F-Studio/Techmino-fastlane")
 
 storage_mode("git")
 
