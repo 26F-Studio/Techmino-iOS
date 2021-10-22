@@ -80,7 +80,7 @@ def upload_package(package_name, is_release)
     deliver(
       app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
       force: true,
-      precheck_include_in_app_purchases: true,
+      precheck_include_in_app_purchases: false,
       skip_screenshots: true,
       reject_if_possible: true,
       automatic_release: true,
