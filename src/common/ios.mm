@@ -53,11 +53,11 @@ static bool deleteFileInDocuments(NSString *filename);
 	if ((self = [super init]))
 	{
 		_gameList = [[NSMutableArray alloc] initWithArray:list copyItems:YES];
-		
+
 		self.title = @"LÖVE Games";
 		self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	}
-	
+
 	return self;
 }
 
@@ -72,16 +72,16 @@ static bool deleteFileInDocuments(NSString *filename);
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	static NSString *cellIdentifier = @"LOVETableCell";
-	
+
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 	if (cell == nil)
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-	
+
 	if (indexPath.row < (NSInteger) self.gameList.count)
 		cell.textLabel.text = self.gameList[indexPath.row];
 	else
 		cell.textLabel.text = @"No-game screen";
-	
+
 	return cell;
 }
 
@@ -102,12 +102,12 @@ static bool deleteFileInDocuments(NSString *filename);
 {
 	if (editingStyle != UITableViewCellEditingStyleDelete)
 		return;
-	
+
 	if (indexPath.row >= (NSInteger) self.gameList.count)
 		return;
-	
+
 	NSString *filename = self.gameList[indexPath.row];
-	
+
 	// Delete the file.
 	if (deleteFileInDocuments(filename))
 	{
@@ -134,10 +134,10 @@ static NSString *getDocumentsDirectory()
 static NSArray *getLovesInDocuments()
 {
 	NSMutableArray *paths = [NSMutableArray new];
-	
+
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSDirectoryEnumerator *enumerator = [manager enumeratorAtPath:getDocumentsDirectory()];
-	
+
 	NSString *path = nil;
 	while ((path = [enumerator nextObject]))
 	{
@@ -147,20 +147,20 @@ static NSArray *getLovesInDocuments()
 		else if ([path.lastPathComponent isEqualToString:@"main.lua"])
 			[paths addObject:path.stringByDeletingLastPathComponent];
 	}
-	
+
 	return paths;
 }
 
 static bool deleteFileInDocuments(NSString *filename)
 {
 	NSString *documents = getDocumentsDirectory();
-	
+
 	NSString *file = [documents stringByAppendingPathComponent:filename];
 	bool success = [[NSFileManager defaultManager] removeItemAtPath:file error:nil];
-	
+
 	if (success)
 		NSLog(@"Deleted file %@ in Documents folder.", filename);
-	
+
 	return success;
 }
 
@@ -170,32 +170,32 @@ static int dropFileEventFilter(void *userdata, SDL_Event *event)
 	{
 		if (event->type != SDL_DROPFILE)
 			return 1;
-		
+
 		NSString *fname = @(event->drop.file);
 		NSFileManager *fmanager = [NSFileManager defaultManager];
-		
+
 		if ([fmanager fileExistsAtPath:fname] && [fname.pathExtension isEqual:@"love"])
 		{
 			NSString *documents = getDocumentsDirectory();
-			
+
 			documents = documents.stringByStandardizingPath.stringByResolvingSymlinksInPath;
 			fname = fname.stringByStandardizingPath.stringByResolvingSymlinksInPath;
-			
+
 			// Is the file inside the Documents directory?
 			if ([fname hasPrefix:documents])
 			{
 				LOVETableViewController *vc = (__bridge LOVETableViewController *) userdata;
-				
+
 				// Update the game list.
 				NSArray *games = getLovesInDocuments();
 				vc.gameList = [[NSMutableArray alloc] initWithArray:games copyItems:YES];
 				[vc.tableView reloadData];
-				
+
 				SDL_free(event->drop.file);
 				return 0;
 			}
 		}
-		
+
 		return 1;
 	}
 }
@@ -215,26 +215,26 @@ static NSString *showGameList(NSArray *filenames)
 {
 	// Game list view controller.
 	LOVETableViewController *tablecontroller = [[LOVETableViewController alloc] initWithGameList:filenames];
-	
+
 	// Navigation view controller (only used for the header bar right now.)
 	// Contains the game list view/controller.
 	UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:tablecontroller];
-	
+
 	UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 	window.rootViewController = navcontroller;
-	
+
 	SDL_EventFilter oldfilter = nullptr;
 	void *oldudata = nullptr;
 	SDL_GetEventFilter(&oldfilter, &oldudata);
-	
+
 	// Manually retain the table VC and use it for the event filter userdata.
 	// We need to set a custom event filter to update the table when .love files
 	// are opened by the user.
 	void *tableudata = (void *) CFBridgingRetain(tablecontroller);
 	SDL_SetEventFilter(dropFileEventFilter, tableudata);
-	
+
 	[window makeKeyAndVisible];
-	
+
 	// Process events until a game in the list is selected.
 	NSRunLoop *runloop = [NSRunLoop currentRunLoop];
 	while (tablecontroller.selectedGame == nil)
@@ -242,13 +242,13 @@ static NSString *showGameList(NSArray *filenames)
 		[runloop runMode:NSDefaultRunLoopMode  beforeDate:[NSDate distantPast]];
 		[runloop runMode:UITrackingRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1.0/60.0]];
 	}
-	
+
 	// The window will get released and cleaned up once we go out of scope.
 	window.hidden = YES;
-	
+
 	SDL_SetEventFilter(oldfilter, oldudata);
 	CFBridgingRelease(tableudata);
-	
+
 	return tablecontroller.selectedGame;
 }
 
@@ -256,26 +256,26 @@ std::string getLoveInResources(bool &fused)
 {
 	fused = false;
 	std::string path;
-	
+
 	@autoreleasepool
 	{
 		// Start by looking in the main bundle (.app) folder for .love files.
 		NSArray *bundlepaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"love" inDirectory:nil];
-		
+
 		if (bundlepaths.count > 0)
 		{
 			// The game should be fused if we have something here.
 			fused = true;
 			return [bundlepaths[0] UTF8String];
 		}
-		
+
 		// Otherwise look in the app's Documents directory. The game won't be
 		// fused.
 		NSArray *filepaths = getLovesInDocuments();
-		
+
 		// Let the user select a game from the un-fused list.
 		NSString *selectedfile = showGameList(filepaths);
-		
+
 		// The string length might be 0 if the no-game screen was selected.
 		if (selectedfile != nil && selectedfile.length > 0)
 		{
@@ -283,7 +283,7 @@ std::string getLoveInResources(bool &fused)
 			path = [documents stringByAppendingPathComponent:selectedfile].UTF8String;
 		}
 	}
-	
+
 	return path;
 }
 
@@ -291,43 +291,43 @@ std::string getAppdataDirectory()
 {
 	NSSearchPathDirectory searchdir = NSApplicationSupportDirectory;
 	std::string path;
-	
+
 	@autoreleasepool
 	{
 		NSArray *dirs = NSSearchPathForDirectoriesInDomains(searchdir, NSUserDomainMask, YES);
-		
+
 		if (dirs.count > 0)
 			path = [dirs[0] UTF8String];
 	}
-	
+
 	return path;
 }
 
 std::string getHomeDirectory()
 {
 	std::string path;
-	
+
 	@autoreleasepool
 	{
 		path = [NSHomeDirectory() UTF8String];
 	}
-	
+
 	return path;
 }
 
 bool openURL(const std::string &url)
 {
 	bool success = false;
-	
+
 	@autoreleasepool
 	{
 		UIApplication *app = [UIApplication sharedApplication];
 		NSURL *nsurl = [NSURL URLWithString:@(url.c_str())];
-		
+
 		if ([app canOpenURL:nsurl])
 			success = [app openURL:nsurl];
 	}
-	
+
 	return success;
 }
 
@@ -339,13 +339,31 @@ std::string getExecutablePath()
 	}
 }
 
-void vibrate()
+void vibrate(const double seconds)
 {
 	@autoreleasepool
 	{
 		if (@available(iOS 10.0, *)) {
-			UIImpactFeedbackGenerator *feedBackGenertor = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
-			[feedBackGenertor impactOccurred];
+
+			UIImpactFeedbackGenerator *impact = nil;
+
+			//NSLog(@"%f", seconds);
+
+			if (seconds == 0.0) {
+				return;
+			}
+			else if (seconds == 1.0) {
+				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight]; // 轻
+			}
+			else if (seconds == 2.0) {
+				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium]; // 中
+			}
+			else if (seconds > 2.0) {
+				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy]; // 重
+			}
+
+			[impact impactOccurred];
+
 		} else {
 			AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 		}
@@ -358,14 +376,14 @@ bool setAudioMixWithOthers(bool mixEnabled)
 	{
 		NSString *category = AVAudioSessionCategorySoloAmbient;
 		NSError *err;
-		
+
 		if (mixEnabled)
 			category = AVAudioSessionCategoryAmbient;
-		
+
 		bool success = [[AVAudioSession sharedInstance] setCategory:category error:&err];
 		if (!success)
 			NSLog(@"Error in AVAudioSession setCategory: %@", [err localizedDescription]);
-		
+
 		return success;
 	}
 }
@@ -387,7 +405,7 @@ Rect getSafeArea(SDL_Window *window)
 	{
 		Rect rect = {};
 		SDL_GetWindowSize(window, &rect.w, &rect.h);
-		
+
 		SDL_SysWMinfo info = {};
 		SDL_VERSION(&info.version);
 		if (SDL_GetWindowWMInfo(window, &info))
@@ -396,19 +414,19 @@ Rect getSafeArea(SDL_Window *window)
 			if (@available(iOS 11.0, tvOS 11.0, *))
 			{
 				UIEdgeInsets insets = view.safeAreaInsets;
-				
+
 				rect.x += insets.left;
 				rect.w -= insets.left;
-				
+
 				rect.w -= insets.right;
-				
+
 				rect.y += insets.top;
 				rect.h -= insets.top;
-				
+
 				rect.h -= insets.bottom;
 			}
 		}
-		
+
 		return rect;
 	}
 }

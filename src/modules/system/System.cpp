@@ -126,7 +126,7 @@ bool System::openURL(const std::string &url) const
 	HINSTANCE result = 0;
 
 #if defined(LOVE_WINDOWS_UWP)
-	
+
 	Platform::String^ urlString = ref new Platform::String(wurl.c_str());
 	auto uwpUri = ref new Windows::Foundation::Uri(urlString);
 	Windows::System::Launcher::LaunchUriAsync(uwpUri);
@@ -152,7 +152,7 @@ void System::vibrate(double seconds) const
 #ifdef LOVE_ANDROID
 	love::android::vibrate(seconds);
 #elif defined(LOVE_IOS)
-	love::ios::vibrate();
+	love::ios::vibrate(seconds);
 #else
 	LOVE_UNUSED(seconds);
 #endif
