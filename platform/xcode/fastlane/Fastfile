@@ -79,6 +79,7 @@ def upload_package(package_name, is_release)
   if is_release
     deliver(
       app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
+      force: true,
       skip_screenshots: true,
       reject_if_possible: true,
       automatic_release: true,
