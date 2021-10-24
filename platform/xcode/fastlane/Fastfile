@@ -8,6 +8,7 @@ APP_CHANGELOG = ENV["APP_CHANGELOG"]
 APP_ID = ENV["APP_ID"]
 APP_IDENTIFIER = ENV["APP_IDENTIFIER"]
 APP_PROFILE = ENV["APP_PROFILE"]
+APP_VERSION = ENV["APP_VERSION"]
 KEYCHAIN_NAME = ENV["KEYCHAIN_NAME"]
 KEYCHAIN_PWD = ENV["KEYCHAIN_PWD"]
 MATCH_TOKEN = ENV["MATCH_TOKEN"]
@@ -50,7 +51,14 @@ def fastlane_match(profile_type, api_key)
 end
 
 def build_target(custom_configuration, custom_scheme, custom_method, default_package_name)
+  puts "New version is: #{APP_VERSION[1..]}"
   puts "New build number is: #{APP_BUILD}"
+
+  increment_version_number_in_xcodeproj(
+    xcodeproj: "Techmino.xcodeproj" ,
+    scheme: custom_scheme,
+    version_number: "#{APP_VERSION[1..]}"
+  )
     
   increment_build_number_in_xcodeproj(
     xcodeproj: "Techmino.xcodeproj" ,
