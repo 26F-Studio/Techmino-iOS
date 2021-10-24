@@ -101,15 +101,19 @@ def pilot_package(package_name)
 end
 
 def distribute_package(package_name)
-  pilot(
-    apple_id: "#{APP_ID}",
-    app_identifier: "#{APP_IDENTIFIER}",
-    changelog: "#{APP_CHANGELOG}",
-    distribute_external: true,
-    reject_build_waiting_for_review: true,
-    groups: ["Dev", "Test"],
-    ipa: package_name
-  )
+  begin
+    pilot(
+      apple_id: "#{APP_ID}",
+      app_identifier: "#{APP_IDENTIFIER}",
+      changelog: "#{APP_CHANGELOG}",
+      distribute_external: true,
+      groups: ["Dev", "Test"],
+      ipa: package_name
+    )
+  rescue StandardError => e
+    raise unless e.message.include? 'Another build is in review'
+    UI.important('Another build is already in external beta review. Skipping external distribution. ⚠️')
+  end
 end
 
 def deliver_package(package_name)
