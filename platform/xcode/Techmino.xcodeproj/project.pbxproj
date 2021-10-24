@@ -479,7 +479,7 @@
 				);
 				MARKETING_VERSION = __VERSION__;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino.dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.26f-studio.techmino.dev";
@@ -536,7 +536,7 @@
 				);
 				MARKETING_VERSION = __VERSION__;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino.dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc org.26f-studio.techmino.dev";
@@ -594,7 +594,7 @@
 				);
 				MARKETING_VERSION = __VERSION__;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino.dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.26f-studio.techmino.dev";
@@ -821,7 +821,7 @@
 				);
 				MARKETING_VERSION = __VERSION__;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino.release";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino";
 				PRODUCT_NAME = Techmino;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.26f-studio.techmino.release";
@@ -878,7 +878,7 @@
 				);
 				MARKETING_VERSION = __VERSION__;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino.release";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino";
 				PRODUCT_NAME = Techmino;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc org.26f-studio.techmino.release";
@@ -936,7 +936,7 @@
 				);
 				MARKETING_VERSION = __VERSION__;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino.release";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino";
 				PRODUCT_NAME = Techmino;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.26f-studio.techmino.release";
