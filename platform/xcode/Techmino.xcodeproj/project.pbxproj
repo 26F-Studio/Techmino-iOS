@@ -539,7 +539,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.26f-studio.techmino";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc org.26f-studio.techmino";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -881,7 +881,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.26f-studio.techmino";
 				PRODUCT_NAME = Techmino;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.26f-studio.techmino";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc org.26f-studio.techmino";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
