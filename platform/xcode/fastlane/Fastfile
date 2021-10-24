@@ -1,37 +1,37 @@
 default_platform(:ios)
 
-DEVELOPER_APP_ID = ENV["DEVELOPER_APP_ID"]
-DEVELOPER_APP_IDENTIFIER = ENV["DEVELOPER_APP_IDENTIFIER"]
-PROVISIONING_PROFILE_SPECIFIER = ENV["PROVISIONING_PROFILE_SPECIFIER"]
-TEMP_KEYCHAIN_USER = ENV["TEMP_KEYCHAIN_USER"]
-TEMP_KEYCHAIN_PASSWORD = ENV["TEMP_KEYCHAIN_PASSWORD"]
-APPLE_ISSUER_ID = ENV["APPLE_ISSUER_ID"]
-APPLE_KEY_ID = ENV["APPLE_KEY_ID"]
-APPLE_KEY_CONTENT = ENV["APPLE_KEY_CONTENT"]
-GIT_AUTHORIZATION = ENV["GIT_AUTHORIZATION"]
-PROJECT_BUILD_NUMBER = ENV["PROJECT_BUILD_NUMBER"]
-PILOT_CHANGE_LOG = ENV["PILOT_CHANGE_LOG"]
+API_ID = ENV["API_ID"]
+API_ISSUER = ENV["API_ISSUER"]
+API_KEY = ENV["API_KEY"]
+APP_BUILD = ENV["APP_BUILD"]
+APP_CHANGELOG = ENV["APP_CHANGELOG"]
+APP_ID = ENV["APP_ID"]
+APP_IDENTIFIER = ENV["APP_IDENTIFIER"]
+APP_PROFILE = ENV["APP_PROFILE"]
+KEYCHAIN_NAME = ENV["KEYCHAIN_NAME"]
+KEYCHAIN_PWD = ENV["KEYCHAIN_PWD"]
+MATCH_TOKEN = ENV["MATCH_TOKEN"]
 
 def delete_temp_keychain()
   delete_keychain(
-    name: TEMP_KEYCHAIN_USER
-  ) if File.exist? File.expand_path("~/Library/Keychains/#{TEMP_KEYCHAIN_USER}-db")
+    name: KEYCHAIN_NAME
+  ) if File.exist? File.expand_path("~/Library/Keychains/#{KEYCHAIN_NAME}-db")
 end
 
 
 def init_credentials()
   create_keychain(
-    name: TEMP_KEYCHAIN_USER,
-    password: TEMP_KEYCHAIN_PASSWORD,
+    name: KEYCHAIN_NAME,
+    password: KEYCHAIN_PWD,
     unlock: false,
     default_keychain: true,
     timeout: 0
   )
 
   return app_store_connect_api_key(
-    key_id: APPLE_KEY_ID,
-    issuer_id: APPLE_ISSUER_ID,
-    key_content: APPLE_KEY_CONTENT,            
+    key_id: API_ID,
+    issuer_id: API_ISSUER,
+    key_content: API_KEY,            
     duration: 1200,            
     in_house: false
   )
@@ -40,22 +40,22 @@ end
 def fastlane_match(profile_type, api_key)
   match(
     type: profile_type,
-    app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
-    git_basic_authorization: Base64.strict_encode64(GIT_AUTHORIZATION),
+    app_identifier: "#{APP_IDENTIFIER}",
+    git_basic_authorization: Base64.strict_encode64(MATCH_TOKEN),
     readonly: true,
-    keychain_name: TEMP_KEYCHAIN_USER,
-    keychain_password: TEMP_KEYCHAIN_PASSWORD,
+    keychain_name: KEYCHAIN_NAME,
+    keychain_password: KEYCHAIN_PWD,
     api_key: api_key
   )
 end
 
 def build_target(custom_configuration, custom_scheme, custom_method, default_package_name)
-  puts "New build number is: #{PROJECT_BUILD_NUMBER}"
+  puts "New build number is: #{APP_BUILD}"
     
   increment_build_number_in_xcodeproj(
     xcodeproj: "Techmino.xcodeproj" ,
     scheme: custom_scheme,
-    build_number: "#{PROJECT_BUILD_NUMBER}"
+    build_number: "#{APP_BUILD}"
   )
 
   if default_package_name
@@ -72,7 +72,7 @@ def build_target(custom_configuration, custom_scheme, custom_method, default_pac
     export_method: custom_method,
     export_options: {
       provisioningProfiles: { 
-          DEVELOPER_APP_ID => PROVISIONING_PROFILE_SPECIFIER
+          APP_ID => APP_PROFILE
       }
     },
     output_name: package_name
@@ -84,7 +84,7 @@ end
 def upload_package(package_name, is_release)
   if is_release
     deliver(
-      app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
+      app_identifier: "#{APP_IDENTIFIER}",
       force: true,
       precheck_include_in_app_purchases: false,
       skip_screenshots: true,
@@ -93,13 +93,13 @@ def upload_package(package_name, is_release)
       ipa: package_name
     )
   else
-    puts "Changelog is: #{PILOT_CHANGE_LOG}"
+    puts "Changelog is: #{APP_CHANGELOG}"
 
     pilot(
-      apple_id: "#{DEVELOPER_APP_ID}",
-      app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
+      apple_id: "#{APP_ID}",
+      app_identifier: "#{APP_IDENTIFIER}",
       distribute_external: true,
-      changelog: "#{PILOT_CHANGE_LOG}",
+      changelog: "#{APP_CHANGELOG}",
       groups: "Techmino",
       ipa: package_name
     )
