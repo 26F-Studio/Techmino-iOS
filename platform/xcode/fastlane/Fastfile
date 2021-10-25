@@ -91,14 +91,38 @@ def build_target(custom_configuration, custom_scheme, custom_method, default_pac
 end
 
 def pilot_package(package_name)
-  pilot(
-    apple_id: "#{APP_ID}",
-    app_identifier: "#{APP_IDENTIFIER}",
-    changelog: "#{APP_CHANGELOG}",
-    skip_waiting_for_build_processing: true,
-    groups: "Dev",
-    ipa: package_name
-  )
+  begin
+    pilot(
+      apple_id: "#{APP_ID}",
+      app_identifier: "#{APP_IDENTIFIER}",
+      changelog: "#{APP_CHANGELOG}",
+      skip_waiting_for_build_processing: true,
+      groups: "Dev",
+      ipa: package_name
+    )
+  rescue StandardError => e
+    UI.important(e.message + ' ⚠️')
+    discord_notifier(
+      webhook_url: DISCORD_WEBHOOK,
+      title: "Develop CI Notify",
+      description: "Pilot to Test Flight failed",
+      success: false,
+      fields:[
+        {
+          name: "Failed message", 
+          value: e.message
+        },
+        {
+          name: "IPA version", 
+          value: APP_VERSION[1..]
+        },
+        {
+          name: "IPA Build number", 
+          value: APP_BUILD
+        }
+      ]  
+    )
+  end
 end
 
 def distribute_package(package_name)
@@ -112,8 +136,7 @@ def distribute_package(package_name)
       ipa: package_name
     )
   rescue StandardError => e
-    raise unless e.message.include? 'Another build is in review'
-    UI.important('Another build is already in external beta review. Skipping external distribution. ⚠️')
+    UI.important(e.message + ' ⚠️')
     discord_notifier(
       webhook_url: DISCORD_WEBHOOK,
       title: "Test CI Notify",
@@ -153,7 +176,6 @@ def deliver_package(package_name)
       }
     )
   rescue StandardError => e
-    # raise unless e.message.include? 'Another build is in review'
     UI.important(e.message + ' ⚠️')
     discord_notifier(
       webhook_url: DISCORD_WEBHOOK,
