@@ -123,6 +123,7 @@ def deliver_package(package_name)
     force: true,
     precheck_include_in_app_purchases: false,
     skip_screenshots: true,
+    submit_for_review: true,
     reject_if_possible: true,
     automatic_release: true,
     ipa: package_name
