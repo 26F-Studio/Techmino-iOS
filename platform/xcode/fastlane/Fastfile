@@ -12,8 +12,6 @@ APP_VERSION = ENV["APP_VERSION"]
 KEYCHAIN_NAME = ENV["KEYCHAIN_NAME"]
 KEYCHAIN_PWD = ENV["KEYCHAIN_PWD"]
 MATCH_TOKEN = ENV["MATCH_TOKEN"]
-FASTLANE_REPORT_EMAIL = ENV["FASTLANE_REPORT_EMAIL"]
-FASTLANE_REPORT_PWD = ENV["FASTLANE_REPORT_PWD"]
 
 def delete_temp_keychain()
   delete_keychain(
@@ -115,16 +113,7 @@ def distribute_package(package_name)
   rescue StandardError => e
     raise unless e.message.include? 'Another build is in review'
     UI.important('Another build is already in external beta review. Skipping external distribution. ⚠️')
-    gmail(
-      username: FASTLANE_REPORT_EMAIL,
-      password: FASTLANE_REPORT_PWD,
-      to: ["traceback@26f-studio.org"],
-      subject: "Distribute to external failed",
-      body: e.message + "\nFailed IPA info: \n" +
-        "    Version: #{APP_VERSION[1..]}\n" +
-        "    Build: #{APP_BUILD}\n" +
-        "    Changelog: #{APP_CHANGELOG}\n"
-    )
+    # TODO: Send a HTTP request to notify
   end
 end
 
