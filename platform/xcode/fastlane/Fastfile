@@ -117,7 +117,7 @@ def distribute_package(package_name)
     discord_notifier(
       webhook_url: DISCORD_WEBHOOK,
       title: "Pilot to Test Flight failed",
-      success: false
+      success: false,
       fields:[
         {
           name: "Failed message", 
@@ -157,7 +157,7 @@ def deliver_package(package_name)
     discord_notifier(
       webhook_url: DISCORD_WEBHOOK,
       title: "Deliver to App Store failed",
-      success: false
+      success: false,
       fields:[
         {
           name: "Failed message", 
