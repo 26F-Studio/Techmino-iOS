@@ -72,9 +72,9 @@ def notityDiscord(
       embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(url: 'https://blog.frankel.ch/assets/resources/github-actions-maven-releases/git-hub-actions.svg')
       embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: 'Techmino `#{buildType}` CI Notification 🔔', icon_url: "https://raw.githubusercontent.com/26F-Studio/Techmino/main/.github/build/Windows/icon.ico")
       embed.fields = [
-        { |variable| variable.name = 'Changelog', variable.value = APP_CHANGELOG },
-        { |variable| variable.name = 'Version', variable.value = APP_VERSION[1..] },
-        { |variable| variable.name = 'Build number', variable.value = APP_BUILD }
+        {name: 'Changelog', value: APP_CHANGELOG},
+        {name: 'Version', value: APP_VERSION[1..]},
+        {name: 'Build number', value: APP_BUILD}
       ]
     end
   end
