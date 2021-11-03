@@ -1,5 +1,3 @@
-APP_CHANGELOG = ENV["APP_CHANGELOG"]
-
 languages(['zh-Hans', 'en-US'])
 
 release_notes({
