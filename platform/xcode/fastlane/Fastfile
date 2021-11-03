@@ -83,6 +83,7 @@ end
 def build_target(custom_configuration, custom_scheme, custom_method, default_package_name)
   puts "New version is: #{APP_VERSION[1..]}"
   puts "New build number is: #{APP_BUILD}"
+  puts "Changelog is: #{APP_CHANGELOG}"
 
   increment_version_number_in_xcodeproj(
     xcodeproj: "Techmino.xcodeproj" ,
