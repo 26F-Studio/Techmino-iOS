@@ -1,0 +1,7 @@
+APP_CHANGELOG = ENV["APP_CHANGELOG"]
+
+languages(['zh-CN', 'en-US'])
+
+release_notes({
+    'default' => APP_CHANGELOG
+})
