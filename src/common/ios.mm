@@ -343,7 +343,7 @@ void vibrate(const double seconds)
 {
 	@autoreleasepool
 	{
-		// iPhone 7 及以上机型且系统为 iOS 10.0 以上
+		// Enable multiple level vibration only on iPhone 7 & iOS 10.0 and above
 		struct utsname systemInfo;
 		uname(&systemInfo);
 		NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
@@ -353,8 +353,6 @@ void vibrate(const double seconds)
 		if (result && @available(iOS 10.0, *)) {
 
 			UIImpactFeedbackGenerator *impact = nil;
-
-			//NSLog(@"%f", seconds);
 
 			if (seconds >= 0.5 && seconds < 1.5) {
 				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight]; // 轻
