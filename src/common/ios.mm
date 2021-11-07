@@ -343,7 +343,14 @@ void vibrate(const double seconds)
 {
 	@autoreleasepool
 	{
-		if (@available(iOS 10.0, *)) {
+		// iPhone 7 及以上机型且系统为 iOS 10.0 以上
+		struct utsname systemInfo;
+		uname(&systemInfo);
+		NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+		NSString *iPhone7 = @"iPhone9,1";
+		BOOL result = [iPhone7 compare:deviceString] == NSOrderedAscending;
+
+		if (result && @available(iOS 10.0, *)) {
 
 			UIImpactFeedbackGenerator *impact = nil;
 
