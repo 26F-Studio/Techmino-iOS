@@ -34,6 +34,8 @@
 #include <SDL_video.h>
 #include <SDL_syswm.h>
 
+#include <sys/utsname.h>
+
 static NSArray *getLovesInDocuments();
 static bool deleteFileInDocuments(NSString *filename);
 
