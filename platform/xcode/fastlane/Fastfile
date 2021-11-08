@@ -60,6 +60,7 @@ def notityDiscord(
   description,
   color
 )
+  puts "Try sending Discord message..."
   client = Discordrb::Webhooks::Client.new(url: DISCORD_WEBHOOK)
   client.execute do |builder|
     builder.add_embed do |embed|
