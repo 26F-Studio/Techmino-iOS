@@ -345,32 +345,57 @@ void vibrate(const double seconds)
 {
 	@autoreleasepool
 	{
-		// Enable multiple level vibration only on iPhone 7 & iOS 10.0 and above
+		// Enable multiple levels vibration only on iPhone 7 & iOS 10.0 and above
 		struct utsname systemInfo;
 		uname(&systemInfo);
 		NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-		NSString *iPhone7 = @"iPhone9,1";
-		BOOL result = [iPhone7 compare:deviceString] == NSOrderedAscending;
 
-		if (result && @available(iOS 10.0, *)) {
+		// for test
+//		deviceString = @"iPhone10,1"; // iPhone 8
+//		deviceString = @"iPhone9,1";  // iPhone 7
+//		deviceString = @"iPhone8,2";  // iPhone 6s Plus
+//		deviceString = @"iPad8,9";    // iPad Pro 11
+		
+		NSRange iPhoneRange = [deviceString rangeOfString:@"iPhone"];
+		
+		// NSLog(@"deviceString: %@, iPhoneRange: %@", deviceString, NSStringFromRange(iPhoneRange));
+		
+		if (iPhoneRange.length == 6) {
+			// Is an iPhone
+			NSRange  commaRange  = [deviceString rangeOfString:@","];
+			NSString *iPhone     = [deviceString substringWithRange:iPhoneRange];
+			NSRange  numRange    = NSMakeRange(iPhoneRange.location + iPhoneRange.length,
+											   commaRange.location - iPhoneRange.location - iPhoneRange.length);
+			NSString *num        = [deviceString substringWithRange:numRange];
+			
+			//NSLog(@"str: %@, commaRange: %@, iPhoneRange: %@, iPhone: %@, num: %@", deviceString, NSStringFromRange(commaRange), NSStringFromRange(iPhoneRange), iPhone, num);
+			
+			if ([num intValue] >= 9) {
+				// iPhone 7 and above, see: https://gist.github.com/adamawolf/3048717#file-apple_mobile_device_types-txt-L22
+				
+				if (@available(iOS 10.0, *)) {
+					// iOS 10.0 and above
+					
+					UIImpactFeedbackGenerator *impact = nil;
 
-			UIImpactFeedbackGenerator *impact = nil;
+					if (seconds >= 0.5 && seconds < 1.5) {
+						impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight]; // 轻
+					} else if (seconds >= 1.5 && seconds < 2.5) {
+						impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium]; // 中
+					} else if (seconds >= 2.5) {
+						impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy]; // 重
+					} else {
+						return;
+					}
 
-			if (seconds >= 0.5 && seconds < 1.5) {
-				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight]; // 轻
-			} else if (seconds >= 1.5 && seconds < 2.5) {
-				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium]; // 中
-			} else if (seconds >= 2.5) {
-				impact = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy]; // 重
-			} else {
-				return;
+					[impact impactOccurred];
+					return;
+				}
 			}
-
-			[impact impactOccurred];
-
-		} else {
-			AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 		}
+		
+		// Others
+		AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 	}
 }
 
