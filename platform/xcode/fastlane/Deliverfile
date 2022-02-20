@@ -1,4 +1,4 @@
-languages(['zh-Hans'])
+languages(['zh-Hans','en-US'])
 
 release_notes({
     'default' => ENV["APP_CHANGELOG"]
